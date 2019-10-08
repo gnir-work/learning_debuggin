@@ -4,7 +4,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="debug_me",
+    name="debug_me_tests",
     packages=find_packages(),
-    install_requires=['itertools'],
+    install_requires=['pytest'],
 )
