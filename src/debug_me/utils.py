@@ -1,5 +1,4 @@
 from itertools import chain
-from copy import deepcopy
 from typing import Generator
 
 MIN_DIGIT_range = 0
@@ -21,7 +20,7 @@ def generate_possible_options(
     end = min(10, end)
     single_digits = range(start, end)
 
-    if length == 1:
+    if length == 0:
         yield from map(str, single_digits)
     else:
         for option in generate_possible_options(length - 1):
@@ -51,10 +50,9 @@ def get_all_possible_passwords(
     :common_passwords_path: The path to common passwords file.
     :return: All of the passwords.
     """
-    all_passwords = deepcopy(possible_passwords)
     if common_passwords_path:
-        all_passwords.extend(load_common_passwords(common_passwords_path))
+        possible_passwords.extend(load_common_passwords(common_passwords_path))
 
     brute_forced_passwords = [generate_possible_options(length) for length in range(1, generated_password_length + 1)]
 
-    return chain(all_passwords, *brute_forced_passwords)
+    return chain(possible_passwords, *brute_forced_passwords)
