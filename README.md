@@ -25,6 +25,11 @@ In order to run the cracker please execute the following line from the projects 
 python src/debug_me/worker test.zip . --password-length 5 --verbose
 ```
 
+## Exercise Execution
+1. All of the tests should pass
+2. The worker should crack `super_secret_stuff.zip`
+3. Only then should you look at the files of `super_secret_stuff.zip`
+
 ## The bugs
 * generate_possible_options -> change `length == 0` to `length == 1`.
 * get_all_posiible_passwords -> copy the given array before mutating it.
