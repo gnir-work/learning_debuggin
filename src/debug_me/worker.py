@@ -41,6 +41,9 @@ def break_zip_password(
 
 
 def get_arguments():
+    """
+    Get the arguments for the worker from the command line.
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("zip_file", help="The zip to crack")
     parser.add_argument("extract_to", help="The folder to extact to")

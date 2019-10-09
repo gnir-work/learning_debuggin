@@ -2,8 +2,12 @@
 In this exercise you will find a small python code which contains several bugs.
 The purpose is to find the bugs using `pdb` or `ipdb`.
 
+
+## Requirments
+This projects only requires python3+ and pip installed :)
+
 ## Tests
-In order to make the bugs easier to find there are several test cases writen under [tests](/tests).
+In order to make the bugs easier to find there are several test cases writen under [tests](/tests/debug_me/test_utils.py).
 In order to run the tests run the following commands from the projects root direcotry 
 
 ```bash
