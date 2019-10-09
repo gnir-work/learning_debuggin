@@ -31,7 +31,7 @@ python src/debug_me/worker test.zip . --password-length 5 --verbose
 3. Only then should you look at the files of `super_secret_stuff.zip`
 
 ## The bugs
-The bugs are located in the brach [bugged_code](/tree/bugged_code).
+The bugs are located in the brach `bugged_code`.
 * generate_possible_options -> change `length == 0` to `length == 1`.
 * get_all_posiible_passwords -> copy the given array before mutating it.
 * get_arguments -> type of `--pasword-length` should be `int` it defaults to `str`.
