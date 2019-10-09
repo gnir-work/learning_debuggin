@@ -7,6 +7,7 @@ import argparse
 def break_zip_password(
     path_to_zip: str,
     extract_to: str,
+    password_length: int = 5,
     common_passwords_path: str = "",
     verbose: bool = False,
 ) -> str:
@@ -22,7 +23,8 @@ def break_zip_password(
     """
     zipfile = ZipFile(path_to_zip)
     for password in get_all_possible_passwords(
-        common_passwords_path=common_passwords_path
+        generated_password_length=password_length,
+        common_passwords_path=common_passwords_path,
     ):
         try:
             zipfile.extractall(extract_to, pwd=password.encode("utf-8"))
@@ -40,12 +42,18 @@ def break_zip_password(
 
 def get_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument("zip-file", help="The zip to crack")
-    parser.add_argument("extract-to", help="The folder to extact to")
+    parser.add_argument("zip_file", help="The zip to crack")
+    parser.add_argument("extract_to", help="The folder to extact to")
+    parser.add_argument(
+        "--password-length",
+        help="The length of the generated password",
+        type=int,
+        default=5
+    )
     parser.add_argument(
         "--common-passwords-file",
         help="The path to the file containing passwords you want to try",
-        default=""
+        default="",
     )
     parser.add_argument(
         "--verbose", help="increase output verbosity", action="store_true"
@@ -55,4 +63,10 @@ def get_arguments():
 
 if __name__ == "__main__":
     arguments = get_arguments()
-    break_zip_password(arguments.zip_file, arguments.extract_to, arguments.common_passwords_file, arguments.verbose)
+    break_zip_password(
+        arguments.zip_file,
+        arguments.extract_to,
+        arguments.password_length,
+        arguments.common_passwords_file,
+        arguments.verbose,
+    )
