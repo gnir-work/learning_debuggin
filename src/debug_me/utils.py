@@ -39,18 +39,20 @@ def load_common_passwords(passwords_file_path: str) -> Generator[str, None, None
 
 
 def get_all_possible_passwords(
-    possible_passwords: Generator[str, None, None] = list(generate_possible_options()),
+    possible_passwords: list = [],
+    generated_password_length: int = 5,
     common_passwords_path: str = None,
 ):
     """
     Get all of the possible passwords for the worker to check.
     :possible_passwords: Some possible passwords that we want to append to the other passwords.
+    :generated_password_length: The length of the brute forced generated passwords that we will try.
     :common_passwords_path: The path to common passwords file.
     :return: All of the passwords.
     """
     if common_passwords_path:
-        common_passwords = load_common_passwords(common_passwords_path)
-    else:
-        common_passwords = []
+        possible_passwords.extend(load_common_passwords(common_passwords_path))
 
-    return chain(possible_passwords, common_passwords)
+    brute_forced_passwords = [generate_possible_options(length) for length in range(1, generated_password_length + 1)]
+
+    return chain(possible_passwords, *brute_forced_passwords)
