@@ -50,7 +50,6 @@ def get_arguments():
     parser.add_argument(
         "--password-length",
         help="The length of the generated password",
-        type=int,
         default=5
     )
     parser.add_argument(
