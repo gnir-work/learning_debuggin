@@ -3,7 +3,7 @@ from os import path
 
 from consts import ONE_DIGITS_LENGTH, TWO_DIGITS_LENGTH
 from debug_me.utils import (
-    generate_possible_options,
+    generate_possible_passwords,
     load_common_passwords,
     get_all_possible_passwords,
 )
@@ -22,21 +22,21 @@ def passwords_file_path(tests_directory):
 @pytest.mark.parametrize(
     "length,expected", [(1, ONE_DIGITS_LENGTH), (2, TWO_DIGITS_LENGTH)]
 )
-def test_generate_possible_options_different_lengths(length, expected):
-    assert list(generate_possible_options(length)) == expected
+def test_generate_possible_passwords_different_lengths(length, expected):
+    assert list(generate_possible_passwords(length)) == expected
 
 
 @pytest.mark.parametrize("length,expected,start,end", [(1, ONE_DIGITS_LENGTH, 0, 15)])
-def test_generate_possible_options_with_invalid_ranges(length, expected, start, end):
-    assert list(generate_possible_options(length, start, end)) == expected
+def test_generate_possible_passwords_with_invalid_ranges(length, expected, start, end):
+    assert list(generate_possible_passwords(length, start, end)) == expected
 
 
 @pytest.mark.parametrize(
     "length,expected,start,end",
     [(1, ONE_DIGITS_LENGTH[:5], 0, 5), (1, ONE_DIGITS_LENGTH[5:], 5, 10)],
 )
-def test_generate_possible_options_different_ranges(length, expected, start, end):
-    assert list(generate_possible_options(length, start, end)) == expected
+def test_generate_possible_passwords_different_ranges(length, expected, start, end):
+    assert list(generate_possible_passwords(length, start, end)) == expected
 
 
 def test_load_common_passwords_happy_flow(passwords_file_path):

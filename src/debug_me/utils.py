@@ -6,9 +6,10 @@ MAX_DIGIT_range = 10
 DEFAULT_LENGTH = 5
 DEFAULT_START = 0
 DEFAULT_END = 10
+DEFAULT_PASSWORD_LENGTH = 5
 
 
-def generate_possible_options(
+def generate_possible_passwords(
     length: int = DEFAULT_LENGTH, start: int = DEFAULT_START, end: int = DEFAULT_END
 ) -> Generator[str, None, None]:
     """
@@ -23,7 +24,7 @@ def generate_possible_options(
     if length == 0:
         yield from map(str, single_digits)
     else:
-        for option in generate_possible_options(length - 1):
+        for option in generate_possible_passwords(length - 1):
             for number in single_digits:
                 yield "{option}{number}".format(option=option, number=number)
 
@@ -40,7 +41,7 @@ def load_common_passwords(passwords_file_path: str) -> Generator[str, None, None
 
 def get_all_possible_passwords(
     possible_passwords: list = [],
-    generated_password_length: int = 5,
+    generated_password_length: int = DEFAULT_PASSWORD_LENGTH,
     common_passwords_path: str = None,
 ):
     """
@@ -53,6 +54,9 @@ def get_all_possible_passwords(
     if common_passwords_path:
         possible_passwords.extend(load_common_passwords(common_passwords_path))
 
-    brute_forced_passwords = [generate_possible_options(length) for length in range(1, generated_password_length + 1)]
+    brute_forced_passwords = [
+        generate_possible_passwords(length)
+        for length in range(1, generated_password_length + 1)
+    ]
 
     return chain(possible_passwords, *brute_forced_passwords)

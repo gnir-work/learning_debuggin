@@ -1,4 +1,4 @@
-from utils import get_all_possible_passwords
+from utils import get_all_possible_passwords, DEFAULT_PASSWORD_LENGTH
 from zipfile import ZipFile
 import zlib
 import argparse
@@ -7,7 +7,7 @@ import argparse
 def break_zip_password(
     path_to_zip: str,
     extract_to: str,
-    password_length: int = 5,
+    password_length: int = DEFAULT_PASSWORD_LENGTH,
     common_passwords_path: str = "",
     verbose: bool = False,
 ) -> str:
@@ -50,7 +50,7 @@ def get_arguments():
     parser.add_argument(
         "--password-length",
         help="The length of the generated password",
-        default=5
+        default=DEFAULT_PASSWORD_LENGTH,
     )
     parser.add_argument(
         "--common-passwords-file",
